@@ -86,20 +86,29 @@ def compare_output():
 		ver = filecmp.cmp(samples_output_file, user_output_file)
 		verdict.append(ver)
 
-	for i in range(1, 3):
-		print(verdict[i])
-
 	return verdict
 
 
 def execute_on_all():
 	for i in range(1, 3):
 		output_file = f'{dir_path}/out{i}.txt'
-		input_file = f'{dir_path}/in{i}.txt'
+		input_file = f'{dir_path}/sin{i}.txt'
 		execute(input_file, output_file)
 
 
+def show_verdict(verdict_list):
+	for i in range(1, 3):
+		if verdict_list[i]:
+			print(f'Sample Input {i} PASSED')
 
+		else:
+			print(f'Sample Input {i} FAILED')
+
+
+def test_solution():
+	execute_on_all()
+	ver_list = compare_output()
+	show_verdict(ver_list)
 
 
 
