@@ -2,6 +2,7 @@ import argparse
 import os
 import re
 import filecmp
+import subprocess
 from requests_html import HTMLSession
 
 session = HTMLSession()
@@ -68,8 +69,9 @@ def atcoder(problem_url):
 	print(task.html)
 
 
-def execute_solution(fin, fout):
-	subprocess.
+def execute(fin, fout):
+	subprocess.run(['g++', '-std=c++17', '-D=CPTEST', 'main.cpp'])
+	subprocess.run(['./a.out', fin, fout])
 
 
 def compare_output():
@@ -90,17 +92,16 @@ def compare_output():
 	return verdict
 
 
-def test_solution():
-	pass
+def execute_on_all():
+	for i in range(1, 3):
+		output_file = f'{dir_path}/out{i}.txt'
+		input_file = f'{dir_path}/in{i}.txt'
+		execute(input_file, output_file)
 
 
-# atcoder('https://atcoder.jp/contests/abc173/tasks/abc173_b')
 
-# create_samples()
 
-# f = compare_output()
 
-# os.stat("file").st_size == 0
 
 
 
