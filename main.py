@@ -4,11 +4,13 @@ import re
 import filecmp
 import subprocess
 from requests_html import HTMLSession
+import json
 
 session = HTMLSession()
 
 WORKING_DIR = os.getcwd()
 dir_path = f'{WORKING_DIR}/samples'
+USER_INFO_FILE = 'user_info.json'
 
 # parser = argparse.ArgumentParser()
 
@@ -59,7 +61,10 @@ def codechef(problem_url):
 
 
 def codeforces(problem_url):
-	pass
+	cf_cookie = get_codeforces_cookie()
+	response = session.get(problem_url, cookies=cf_cookie)
+	sample = response.html.find('div.sample-test', first=True)
+	print(sample.text)
 
 
 def atcoder(problem_url):
@@ -111,10 +116,14 @@ def test_solution():
 	show_verdict(ver_list)
 
 
+def get_codeforces_cookie():
+	fp = open(USER_INFO_FILE)
+	data = json.load(fp)
+	codeforces_cookie = data['codeforces']['cookies']
+	return codeforces_cookie
 
 
-
-
+codeforces('https://codeforces.com/problemset/problem/1380/D')
 
 
 
